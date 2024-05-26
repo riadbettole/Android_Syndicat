@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "833415194620",
+    "firebase_url": "https://syndicat-520-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "syndicat-520",
+    "storage_bucket": "syndicat-520.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833415194620:android:047d25ba5df7d2cf087479",
+        "android_client_info": {
+          "package_name": "com.example.android_syndicat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfhFN67b3ynB1kF2MtE1NLeeWMWlg0KUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

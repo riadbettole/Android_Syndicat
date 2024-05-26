@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Android_Syndicat</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="enter_email">Enter your Email..</string>
+    <string name="enter_password">Enter your Password..</string>
+    <string name="repeat_password">Repeat your Password..</string>
+    <string name="enter_phone">Enter your Phone..</string>
+    <string name="enter_fullname">Enter your Full Name..</string>
+    <string name="login_btn">Log In</string>
+    <string name="register">Nice to meet you..</string>
+    <string name="register_btn">Register</string>
+    <string name="lt">&lt;</string>
+    <string name="google_maps">Choose your Localisation</string>
+    <string name="this_is_a_map">This Is A map</string>
+    <string name="apply_this_localisation">Apply This Localisation</string>
+</resources>

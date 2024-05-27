@@ -25,7 +25,6 @@ import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseUser currentUser;
@@ -57,10 +56,9 @@ public class MainActivity extends AppCompatActivity {
         getTemperatureOfCity(new TemperatureCallback() {
             @Override
             public void onTemperatureReceived(String temperature) {
-                String meteoMessage = temperature;
                 Log.d("myTag", "im here");
-                Log.d("myTag", meteoMessage);
-                meteo.setText(meteoMessage);
+                Log.d("myTag", temperature);
+                meteo.setText(temperature);
             }
 
             @Override
@@ -110,9 +108,7 @@ public class MainActivity extends AppCompatActivity {
             islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 imageView.setImageBitmap(bitmap);
-            }).addOnFailureListener(exception -> {
-                Log.e("myTag",exception.toString());
-            });
+            }).addOnFailureListener(exception -> Log.e("myTag",exception.toString()));
         });
     }
 
@@ -120,11 +116,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, AnnoncesActivity.class));
             finish();
     }
-    public void onClickSwitchToFactures(View view){}
-    public void onClickSwitchToMessages(View view){
-        startActivity(new Intent(this, MessagesActivity.class));
-        finish();
-    }
+//    public void onClickSwitchToFactures(View view){}
+//    public void onClickSwitchToMessages(View view){
+//        startActivity(new Intent(this, MessagesActivity.class));
+//        finish();
+//    }
     public void onClickSwitchToParams(View view){
         startActivity(new Intent(this, SettingsActivity.class));
         finish();

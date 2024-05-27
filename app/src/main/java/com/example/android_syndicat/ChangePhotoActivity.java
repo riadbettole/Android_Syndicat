@@ -170,9 +170,7 @@ public class ChangePhotoActivity extends AppCompatActivity {
             islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 imageView.setImageBitmap(bitmap);
-            }).addOnFailureListener(exception -> {
-                Log.e("myTag",exception.toString());
-            });
+            }).addOnFailureListener(exception -> Log.e("myTag",exception.toString()));
         });
     }
 }

@@ -32,12 +32,8 @@ public class AnnonceAddActivity extends AppCompatActivity {
         Item newItem = new Item(text.getText().toString(), image.getText().toString(), mAuth.getCurrentUser().getUid());
 
         itemsRef.push().setValue(newItem)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(AnnonceAddActivity.this, "Failed to add item", Toast.LENGTH_SHORT).show();
-                });
+                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(AnnonceAddActivity.this, "Failed to add item", Toast.LENGTH_SHORT).show());
     }
     public void goToPreviousActivity(View view){
         startActivity(new Intent(AnnonceAddActivity.this, AnnoncesActivity.class));

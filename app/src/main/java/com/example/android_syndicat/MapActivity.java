@@ -174,7 +174,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             // Handle the case where the string cannot be parsed as a number
             Toast.makeText(MapActivity.this, "Error parsing last position", Toast.LENGTH_SHORT).show();
         }
-        return new Pair(lat, lng);
+        return new Pair<>(lat, lng);
     }
 
     public class Pair<U, V> {

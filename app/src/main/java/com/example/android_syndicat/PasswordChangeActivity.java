@@ -46,22 +46,19 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
         AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), oldPassTxt);
         user.reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            user.updatePassword(newPassTxt).addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()) {
-                                    Log.d("myTag", "Password updated");
-                                    startActivity(new Intent(PasswordChangeActivity.this,MainActivity.class));
-                                    finish();
-                                } else {
-                                    Log.d("myTag", "Error password not updated");
-                                }
-                            });
-                        } else {
-                            Log.d("myTag", "Error auth failed");
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        user.updatePassword(newPassTxt).addOnCompleteListener(task1 -> {
+                            if (task1.isSuccessful()) {
+                                Log.d("myTag", "Password updated");
+                                startActivity(new Intent(PasswordChangeActivity.this,MainActivity.class));
+                                finish();
+                            } else {
+                                Log.d("myTag", "Error password not updated");
+                            }
+                        });
+                    } else {
+                        Log.d("myTag", "Error auth failed");
                     }
                 });
 

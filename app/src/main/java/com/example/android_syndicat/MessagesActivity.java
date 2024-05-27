@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,13 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Annonces extends AppCompatActivity {
-    private RecyclerView recyclerView;
+public class MessagesActivity extends AppCompatActivity {
     private List<Item> itemList;
     private ItemAdapter itemAdapter;
-    private SearchView searchView;
     private FirebaseDatabase db;
-    private DatabaseReference root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -35,10 +35,14 @@ public class Annonces extends AppCompatActivity {
         setContentView(R.layout.activity_annonces);
 
         db = FirebaseDatabase.getInstance();
-        root = db.getReference().child("annonces");
 
-        searchView = findViewById(R.id.searchView);
+        displayButtons();
+
+        DatabaseReference root = db.getReference().child("messages");
+
+        SearchView searchView = findViewById(R.id.searchView);
         searchView.clearFocus();//optional for devices older
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -52,7 +56,7 @@ public class Annonces extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -93,7 +97,31 @@ public class Annonces extends AppCompatActivity {
         itemAdapter.setFilteredList(filteredList);
     }
     public void goToPreviousActivity(View view){
-        startActivity(new Intent(Annonces.this, MainActivity.class));
+        startActivity(new Intent(MessagesActivity.this, MainActivity.class));
         finish();
     }
+
+    private void displayButtons() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        DatabaseReference userRef = db.getReference().child("users").child(currentUser.getUid());
+        Button btn = findViewById(R.id.addAnnonce);
+
+        userRef.child("role").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Toast.makeText(MessagesActivity.this, "Error retrieving last position", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String userRole = task.getResult().getValue(String.class);
+            Log.d("myTag",userRole);
+            if (userRole.equals("admin")) {
+                btn.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+    public void onClickChangeToAdd(View view){
+        startActivity(new Intent(MessagesActivity.this, AnnonceAddActivity.class));
+        finish();
+    }
+
 }

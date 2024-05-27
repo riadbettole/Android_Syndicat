@@ -17,7 +17,7 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class PasswordChange extends AppCompatActivity {
+public class PasswordChangeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     @Override
@@ -53,7 +53,7 @@ public class PasswordChange extends AppCompatActivity {
                             user.updatePassword(newPassTxt).addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()) {
                                     Log.d("myTag", "Password updated");
-                                    startActivity(new Intent(PasswordChange.this,MainActivity.class));
+                                    startActivity(new Intent(PasswordChangeActivity.this,MainActivity.class));
                                     finish();
                                 } else {
                                     Log.d("myTag", "Error password not updated");

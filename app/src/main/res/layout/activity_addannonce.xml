@@ -6,14 +6,37 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="72dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:onClick="goToPreviousActivity"
+        android:text="@string/lt"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        android:text="Add An Annonce"
+        android:textSize="34sp"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/changePass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="76dp"
         android:onClick="addItem"
         android:text="add"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_input" />
 
@@ -21,11 +44,12 @@
         android:id="@+id/text_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="180dp"
         android:ems="10"
         android:hint="text"
         android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,11 +57,11 @@
         android:id="@+id/image_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
         android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="image"
         android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input" />
 </androidx.constraintlayout.widget.ConstraintLayout>

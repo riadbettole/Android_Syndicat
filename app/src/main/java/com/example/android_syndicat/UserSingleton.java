@@ -7,7 +7,6 @@ public class UserSingleton {
     private FirebaseUser currentUser;
 
     private UserSingleton() {
-        // Private constructor to prevent instantiation
     }
 
     public static synchronized UserSingleton getInstance() {

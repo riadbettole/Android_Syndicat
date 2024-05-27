@@ -6,10 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-
-public class Settings  extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,16 +14,16 @@ public class Settings  extends AppCompatActivity {
     }
 
     public void onClickChangeToCamera(View view){
-        startActivity(new Intent(this, ChangePhoto.class));
+        startActivity(new Intent(this, ChangePhotoActivity.class));
         finish();
     }
     public void onClickChangeToPassword(View view){
-        startActivity(new Intent(this, PasswordChange.class));
+        startActivity(new Intent(this, PasswordChangeActivity.class));
         finish();
     }
 
     public void onClickChangeToMap(View view){
-        startActivity(new Intent(this, Map.class));
+        startActivity(new Intent(this, MapActivity.class));
         finish();
     }
 

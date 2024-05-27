@@ -3,7 +3,6 @@ package com.example.android_syndicat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,9 +32,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position){
         Item item = itemList.get(position);
         holder.itemNameTv.setText(item.getItemName());
-//        holder.itemImageView.setImageResource(item.getItemImage());
-
-//        holder.cardView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.a));
     }
 
     @Override

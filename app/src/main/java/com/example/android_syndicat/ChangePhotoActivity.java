@@ -31,7 +31,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
-public class ChangePhoto extends AppCompatActivity {
+public class ChangePhotoActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_CODE = 1;
     ActivityResultLauncher<Uri> takePictureLauncher;
     Uri imageUri;
@@ -97,7 +97,6 @@ public class ChangePhoto extends AppCompatActivity {
                 result -> {
                     try{
                         if(result){
-//                            imageView.setImageURI(null);
                             imageView.setImageURI(imageUri);
                             saveImage(imageUri);
                         }
@@ -108,9 +107,9 @@ public class ChangePhoto extends AppCompatActivity {
         );
     }
     public void checkCameraPermissionAndOpenCamera(View view){
-        if(ActivityCompat.checkSelfPermission(ChangePhoto.this,
+        if(ActivityCompat.checkSelfPermission(ChangePhotoActivity.this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(ChangePhoto.this,
+            ActivityCompat.requestPermissions(ChangePhotoActivity.this,
                     new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         }else {
             takePictureLauncher.launch(imageUri);
@@ -138,7 +137,7 @@ public class ChangePhoto extends AppCompatActivity {
 
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             userRef.child("image").setValue("images/" + currentUser.getUid() + ".jpg");
-            startActivity(new Intent(ChangePhoto.this, MainActivity.class));
+            startActivity(new Intent(ChangePhotoActivity.this, MainActivity.class));
             finish();
             Log.d("myTag", "Image uploaded successfully");
         }).addOnFailureListener(e -> {
@@ -147,7 +146,7 @@ public class ChangePhoto extends AppCompatActivity {
     }
 
     public void onClickGetBack(View view){
-        startActivity(new Intent(ChangePhoto.this, MainActivity.class));
+        startActivity(new Intent(ChangePhotoActivity.this, MainActivity.class));
         finish();
     }
 
@@ -158,7 +157,7 @@ public class ChangePhoto extends AppCompatActivity {
 
         userRef.child("image").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
-                Toast.makeText(ChangePhoto.this, "Error retrieving last position", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangePhotoActivity.this, "Error retrieving last position", Toast.LENGTH_SHORT).show();
                 return;
             }
             String imagePath = task.getResult().getValue(String.class);

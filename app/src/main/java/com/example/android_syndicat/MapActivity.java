@@ -29,7 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class Map extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     MapView mapview;
     GoogleMap gMap;
@@ -56,7 +56,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
         userRef.child("localisation").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
-                Toast.makeText(Map.this, "Error retrieving last position", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapActivity.this, "Error retrieving last position", Toast.LENGTH_SHORT).show();
                 return;
             }
             String lastSavedPosition = task.getResult().getValue(String.class);
@@ -136,7 +136,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         userRef.child("localisation").setValue(latLngStr);
         Pair<Double, Double> p = getLatAndLng(latLngStr.split(","));
         getCityNameFromApi(p.first, p.second);
-        startActivity(new Intent(this, Settings.class));
+        startActivity(new Intent(this, SettingsActivity.class));
         finish();
     }
 
@@ -172,7 +172,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
             lng = Double.parseDouble(parts[1].replace(")", ""));
         } catch (NumberFormatException e) {
             // Handle the case where the string cannot be parsed as a number
-            Toast.makeText(Map.this, "Error parsing last position", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MapActivity.this, "Error parsing last position", Toast.LENGTH_SHORT).show();
         }
         return new Pair(lat, lng);
     }

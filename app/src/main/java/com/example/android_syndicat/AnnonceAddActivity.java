@@ -23,7 +23,7 @@ public class AnnonceAddActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
     public void addItem(View view){
-        final EditText text = findViewById(R.id.text_input);
+        final EditText text = findViewById(R.id.password);
         final EditText image = findViewById(R.id.image_input);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

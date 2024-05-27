@@ -52,50 +52,53 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth.createUserWithEmailAndPassword(emailTxt, passwordTxt)
                 .addOnCompleteListener(RegisterActivity.this, task -> {
-                    if(!task.isSuccessful()) {
-                        Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
-
-                        mAuth.signInWithEmailAndPassword(emailTxt,passwordTxt)
-                                .addOnCompleteListener(RegisterActivity.this, task2 -> {
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Log.d("myTag","WTF");
-                                    Log.d("myTag",user.getUid());
-                                    updateUserDataAfterRegister(user, fullNameTxt, phoneTxt);
-
-                                });
+                    if (!task.isSuccessful()) {
+                        Toast.makeText(RegisterActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Toast.makeText(RegisterActivity.this,"User registred" , Toast.LENGTH_SHORT).show();
-                });
+                    Toast.makeText(RegisterActivity.this, "User registered", Toast.LENGTH_SHORT).show();
 
+                    mAuth.signInWithEmailAndPassword(emailTxt, passwordTxt)
+                            .addOnCompleteListener(RegisterActivity.this, authTask -> {
+                                if (authTask.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    if (user != null) {
+                                        updateUserDataAfterRegister(user, fullNameTxt, phoneTxt);
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, "Failed to get current user", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(RegisterActivity.this, "Sign in failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                });
     }
     private void updateUserDataAfterRegister(FirebaseUser user, String fullName, String phoneNumber){
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(fullName)
                 .build();
 
-        String userId = user.getUid();
-        DatabaseReference userRef = mDatabase.child("users").child(userId);
-
         user.updateProfile(profileUpdates)
-            .addOnCompleteListener(task -> {
-                if (!task.isSuccessful()) {
-                    Toast.makeText(RegisterActivity.this, "Failed to update display name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Toast.makeText(RegisterActivity.this, "User registered with display name: " + fullName, Toast.LENGTH_SHORT).show();
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Toast.makeText(RegisterActivity.this, "Failed to update display name", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Toast.makeText(RegisterActivity.this, "User registered with display name: " + fullName, Toast.LENGTH_SHORT).show();
+                });
 
+        String userId = user.getUid();
+        Log.d("myTag",userId);
+        Log.d("myTag","Im here");
+        DatabaseReference userRef = mDatabase.child("users").child(userId);
+        userRef.child("phoneNumber").setValue(phoneNumber);
+        userRef.child("location").setValue("Casablanca");
+        userRef.child("localisation").setValue("(33.59152650505565, -7.604822520772551)");
+        userRef.child("image").setValue("images/test.jpg");
+        userRef.child("role").setValue("user");
 
-                userRef.child("phoneNumber").setValue(phoneNumber);
-                userRef.child("location").setValue("Casablanca");
-                userRef.child("localisation").setValue("(33.59152650505565, -7.604822520772551)");
-                userRef.child("image").setValue("images/test.jpg");
-                userRef.child("role").setValue("user");
-
-                startActivity(new Intent(RegisterActivity.this,MainActivity.class));
-                finish();
-        });
+        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+        finish();
     }
     public void goToPreviousActivity(View view){
         finish();
